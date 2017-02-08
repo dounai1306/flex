@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            color: #fff
+        }
+
+        h2 {
+            margin-bottom: 20px
+        }
+
+        .clearfix:before,
+        .clearfix:after {
+            display: table;
+            content: " ";
+        }
+
+        .clearfix:after {
+            clear: both;
+        }
+
+        .clearfix {
+            *zoom: 1;
+        }
+
+        .basic {
+            margin: 20px
+        }
+
+        .basic .flex {
+            display: flex
+        }
+
+        .normal .flex {
+            display: block
+        }
+
+        .col {
+            width: 200px;
+            float: left;
+            margin-right: 20px;
+            margin-bottom: 20px;
+        }
+
+        .flex {
+            background: #f7e1b5;
+            padding: 5px;
+            box-sizing: border-box
+        }
+
+        .flex .item {
+            margin: 5px;
+            background: #aa8773;
+            width: 20px;
+            height: 20px;
+            text-align: center;
+            line-height: 20px;
+            color: #fff;
+            font-weight: bold
+        }
+
+        .direction .row {
+            flex-direction: row
+        }
+
+        .direction .row-reverse {
+            flex-direction: row-reverse
+        }
+
+        .direction .column {
+            flex-direction: column
+        }
+
+        .direction .column-reverse {
+            flex-direction: column-reverse
+        }
+
+        .flex-wrap .row {
+            flex-direction: row
+        }
+
+        .flex-wrap .nowrap {
+            flex-wrap: nowrap
+        }
+
+        .flex-wrap .wrap {
+            flex-wrap: wrap
+        }
+
+        .flex-wrap .wrap-reverse {
+            flex-wrap: wrap-reverse
+        }
+
+        .justify-content .flex-start {
+            justify-content: flex-start
+        }
+
+        .justify-content .flex-end {
+            justify-content: flex-end
+        }
+
+        .justify-content .center {
+            justify-content: center
+        }
+
+        .justify-content .space-between {
+            justify-content: space-between
+        }
+
+        /* 两端对齐，项目间隔相等 */
+        .justify-content .space-around {
+            justify-content: space-around
+        }
+
+        /* 每个项目两侧的间隔相等 */
+
+        .align-items .flex-start {
+            align-items: flex-start
+        }
+
+        .align-items .flex-end {
+            align-items: flex-end
+        }
+
+        .align-items .center {
+            align-items: center
+        }
+
+        .align-items .baseline {
+            align-items: baseline
+        }
+
+        .align-items .stretch {
+            align-items: stretch
+        }
+
+        /* 如果项目未设置高度或设为auto，将占满整个容器的高度 */
+    </style>
+</head>
+<body>
+<div class="basic normal clearfix">
+    <div class="flex">
+        <div class="item">1</div>
+        <div class="item">2</div>
+        <div class="item">3</div>
+        <div class="item">4</div>
+        <div class="item">5</div>
+        <div class="item">6</div>
+        <div class="item">7</div>
+        <div class="item">8</div>
+        <div class="item">9</div>
+        <div class="item">10</div>
+    </div>
+</div>
+
+<div class="basic direction clearfix">
+    <h2>flex-direction</h2>
+
+    <div class="col">
+        <div class="flex row">
+            <div class="item">1</div>
+            <div class="item">2</div>
+            <div class="item">3</div>
+            <div class="item">4</div>
+            <div class="item">5</div>
+            <div class="item">6</div>
+            <div class="item">7</div>
+            <div class="item">8</div>
+            <div class="item">9</div>
+            <div class="item">10</div>
+        </div>
+    </div>
+    <div class="col">
+        <div class="flex row-reverse">
+            <div class="item">1</div>
+            <div class="item">2</div>
+            <div class="item">3</div>
+            <div class="item">4</div>
+            <div class="item">5</div>
+            <div class="item">6</div>
+            <div class="item">7</div>
+            <div class="item">8</div>
+            <div class="item">9</div>
+            <div class="item">10</div>
+        </div>
+    </div>
+    <div class="col">
+        <div class="flex column ">
+            <div class="item">1</div>
+            <div class="item">2</div>
+            <div class="item">3</div>
+            <div class="item">4</div>
+            <div class="item">5</div>
+            <div class="item">6</div>
+            <div class="item">7</div>
+            <div class="item">8</div>
+            <div class="item">9</div>
+            <div class="item">10</div>
+        </div>
+    </div>
+    <div class="col">
+        <div class="flex column-reverse">
+            <div class="item">1</div>
+            <div class="item">2</div>
+            <div class="item">3</div>
+            <div class="item">4</div>
+            <div class="item">5</div>
+            <div class="item">6</div>
+            <div class="item">7</div>
+            <div class="item">8</div>
+            <div class="item">9</div>
+            <div class="item">10</div>
+        </div>
+    </div>
+</div>
+
+<div class="basic flex-wrap clearfix">
+    <h2>flex-wrap</h2>
+
+    <div class="col">
+        <div class="flex row nowrap">
+            <div class="item">1</div>
+            <div class="item">2</div>
+            <div class="item">3</div>
+            <div class="item">4</div>
+            <div class="item">5</div>
+            <div class="item">6</div>
+            <div class="item">7</div>
+            <div class="item">8</div>
+            <div class="item">9</div>
+            <div class="item">10</div>
+        </div>
+    </div>
+    <div class="col">
+        <div class="flex row wrap ">
+            <div class="item">1</div>
+            <div class="item">2</div>
+            <div class="item">3</div>
+            <div class="item">4</div>
+            <div class="item">5</div>
+            <div class="item">6</div>
+            <div class="item">7</div>
+            <div class="item">8</div>
+            <div class="item">9</div>
+            <div class="item">10</div>
+        </div>
+    </div>
+    <div class="col">
+        <div class="flex row wrap-reverse">
+            <div class="item">1</div>
+            <div class="item">2</div>
+            <div class="item">3</div>
+            <div class="item">4</div>
+            <div class="item">5</div>
+            <div class="item">6</div>
+            <div class="item">7</div>
+            <div class="item">8</div>
+            <div class="item">9</div>
+            <div class="item">10</div>
+        </div>
+    </div>
+
+</div>
+
+<div class="basic justify-content clearfix">
+    <h2>justify-content</h2>
+
+    <div class="col">
+        <div class="flex row flex-start">
+            <div class="item">1</div>
+            <div class="item">2</div>
+            <div class="item">3</div>
+            <div class="item">4</div>
+        </div>
+    </div>
+    <div class="col">
+        <div class="flex row flex-end">
+            <div class="item">1</div>
+            <div class="item">2</div>
+            <div class="item">3</div>
+            <div class="item">4</div>
+        </div>
+    </div>
+    <div class="col">
+        <div class="flex row center">
+            <div class="item">1</div>
+            <div class="item">2</div>
+            <div class="item">3</div>
+            <div class="item">4</div>
+        </div>
+    </div>
+    <div class="col">
+        <div class="flex row space-between">
+            <div class="item">1</div>
+            <div class="item">2</div>
+            <div class="item">3</div>
+            <div class="item">4</div>
+        </div>
+    </div>
+    <div class="col">
+        <div class="flex row space-around">
+            <div class="item">1</div>
+            <div class="item">2</div>
+            <div class="item">3</div>
+            <div class="item">4</div>
+        </div>
+    </div>
+</div>
+
+<div class="basic align-items clearfix">
+    <h2>align-items</h2>
+
+    <div class="col">
+        <div class="flex row flex-start">
+            <div class="item" style="height: 20px;">1</div>
+            <div class="item" style="height: 60px;">2</div>
+            <div class="item" style="height: 40px;">3</div>
+            <div class="item" style="height: 80px;">4</div>
+        </div>
+    </div>
+    <div class="col">
+        <div class="flex row flex-end">
+            <div class="item" style="height: 20px;">1</div>
+            <div class="item" style="height: 60px;">2</div>
+            <div class="item" style="height: 40px;">3</div>
+            <div class="item" style="height: 80px;">4</div>
+        </div>
+    </div>
+    <div class="col">
+        <div class="flex row center">
+            <div class="item" style="height: 20px;">1</div>
+            <div class="item" style="height: 60px;">2</div>
+            <div class="item" style="height: 40px;">3</div>
+            <div class="item" style="height: 80px;">4</div>
+        </div>
+    </div>
+    <div class="col">
+        <div class="flex row baseline ">
+            <div class="item" style="height: 20px;">1</div>
+            <div class="item" style="height: 60px;">2</div>
+            <div class="item" style="height: 40px;">3</div>
+            <div class="item" style="height: 80px;">4</div>
+        </div>
+    </div>
+    <div class="col">
+        <div class="flex row stretch" style="height: 100px">
+            <div class="item" style="height: auto;">1</div>
+            <div class="item" style="height: auto;">2</div>
+            <div class="item" style="height: auto;">3</div>
+            <div class="item" style="height: auto;">4</div>
+        </div>
+    </div>
+</div>
+
+
+<h2>其他常用属性</h2>
+
+<p>order:属性定义项目的排列顺序。数值越小，排列越靠前，默认为0。</p>
+
+<p>flex-grow:属性定义项目的放大比例，默认为0，如为1，均分剩余空间。</p>
+
+<p>flex-shrink:项目的缩小比例，默认为1，即如果空间不足，该项目将缩小。</p>
+</body>
+</html>

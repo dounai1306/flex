@@ -1,0 +1,709 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>flexbox九宫格制作</title>
+    <link rel="stylesheet" type="text/css" href="https://cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <script type="text/javascript" src="https://cdn.bootcss.com/jquery/2.1.4/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdn.bootcss.com/highcharts/4.2.5/highcharts.src.js"></script>
+    <style>
+        html, body {
+            width: 100%;
+            height: 100%;
+            padding: 0;
+            background: -webkit-linear-gradient(left top, #1e1b24, #182633);
+            margin: 0;
+        }
+
+        .flex-parent {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            height: 100%;
+            padding: 20px
+        }
+
+        .flex-row {
+            flex: 1;
+            display: flex;
+            overflow: hidden;
+
+        }
+
+        .flex-row + .flex-row {
+            margin-top: 20px;
+        }
+
+        .flex-column {
+            background: #AECCC6;
+            flex: 1;
+            border-radius: 4px;
+            position: relative;
+        }
+
+        .flex-column + .flex-column {
+            margin-left: 20px;
+        }
+
+        .flex-panel {
+
+            background: transparent;
+            box-shadow: none;
+            border: none;
+            color: #fff;
+            position: absolute;
+            top: 0;
+            right: 0;
+            left: 0;
+            bottom: 0;
+            height: 100%;
+        }
+
+        .flex-panel .panel-heading {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            border: none;
+            text-align: center;
+        }
+
+        .flex-panel .panel-body {
+            position: absolute;
+            top: 40px;
+            left: 0;
+            height: auto;
+            right: 0;
+            bottom: 0;
+            /*border-radius: 0 0 4px 4px;*/
+            padding: 10px 5px 5px
+        }
+
+        /* 皮肤 */
+        .flex-panel-default .panel-heading {
+            background: -webkit-linear-gradient(left top, #2b303c, #2e3746);
+            color: #fff;
+            border-bottom: 1px solid #2b3240;
+        }
+
+        .flex-panel-default .panel-body {
+            background: -webkit-linear-gradient(left top, #2b303c, #2e3746);
+            border-top: 1px solid #272c39;
+        }
+
+        .flex-panel-default .panel-heading .glyphicon {
+            color: #5f7692;
+        }
+
+        .flex-panel-sucess .panel-heading {
+            background: -webkit-linear-gradient(left top, #009336, #19be4e);
+            color: #fff;
+            border-bottom: 1px solid #25ba57;
+        }
+
+        .flex-panel-sucess .panel-body {
+            background: -webkit-linear-gradient(left top, #009336, #19be4e);
+            border-top: 1px solid #25ba57;
+        }
+
+        .flex-panel-sucess .panel-heading .glyphicon {
+            color: #9ee4ba;
+        }
+
+        .flex-panel-danger .panel-heading {
+            background: -webkit-linear-gradient(left top, #df2b49, #ff465a);
+            color: #fff;
+            border-bottom: 1px solid #e84a61;
+        }
+
+        .flex-panel-danger .panel-body {
+            background: -webkit-linear-gradient(left top, #df2b49, #ff465a);
+            border-top: 1px solid #e84a61;
+        }
+
+        .flex-panel-danger .panel-heading .glyphicon {
+            color: #f08b9f;
+        }
+
+        .flex-parent .table > tbody > tr > th {
+            border-bottom: 1px solid #41596e;
+            border-top: none;
+            color: #5f7692;
+            font-weight: normal;
+        }
+
+        .flex-parent .table > tbody > tr > td {
+            border: none
+        }
+
+        .flex-panel .label-dark {
+            background: #22313e
+        }
+
+        .flex-panel ul, li {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .flex-panel li {
+            width: 20%;
+            float: left;
+            padding: 5px 10px;
+            text-align: center;
+            color: #8093b3
+        }
+
+        .flex-panel li img {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            transition: all .3s;
+            cursor: pointer;
+            margin-bottom: 5px;
+        }
+
+        .flex-panel li img:hover {
+            border: 5px solid transparent;
+        }
+    </style>
+</head>
+<body>
+<div class="flex-parent">
+    <div class="flex-row">
+        <div class="flex-column">
+            <div class="panel flex-panel flex-panel-default">
+                <div class="panel-heading clearfix">
+                    <i class="glyphicon glyphicon-th pull-left"></i>
+                    Team's Cases
+                    <i class="glyphicon glyphicon-cog pull-right"></i>
+                </div>
+                <div class="panel-body">
+                    <table class="table">
+                        <tr>
+                            <th>AGENT</th>
+                            <th class="text-center">CASES</th>
+                            <th class="text-right">OLDEST</th>
+                        </tr>
+                        <tr>
+                            <td>Bob</td>
+                            <td class="text-center"><span class="label label-success">10</span></td>
+                            <td class="text-right"><span class="label label-dark">10 mins</span></td>
+                        </tr>
+                        <tr>
+                            <td>Julie</td>
+                            <td class="text-center"><span class="label label-danger">75</span></td>
+                            <td class="text-right"><span class="label label-dark">53 mins</span></td>
+                        </tr>
+                        <tr>
+                            <td>Steven</td>
+                            <td class="text-center"><span class="label label-info">21</span></td>
+                            <td class="text-right"><span class="label label-dark">18 mins</span></td>
+                        </tr>
+                        <tr>
+                            <td>Julie</td>
+                            <td class="text-center"><span class="label label-warning">10</span></td>
+                            <td class="text-right"><span class="label label-dark">12 mins</span></td>
+                        </tr>
+                        <tr>
+                            <td>Steven</td>
+                            <td class="text-center"><span class="label label-primary">10</span></td>
+                            <td class="text-right"><span class="label label-dark">23 mins</span></td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="flex-column">
+            <div class="panel flex-panel flex-panel-danger">
+                <div class="panel-heading clearfix">
+                    <i class="glyphicon glyphicon-th pull-left"></i>
+                    Column Chart
+                    <i class="glyphicon glyphicon-cog pull-right"></i>
+                </div>
+                <div class="panel-body clearfix">
+
+                    <div class="col-md-4 text-center"
+                         style="height: 100%;display: table;box-sizing:border-box;padding:0">
+                            <span style="font-size: 100px;font-family: Times;display: table-cell;vertical-align: middle;">23<p
+                                    style="font-size:20px">min</p></span>
+                    </div>
+                    <div class="col-md-8 pull-right" style="padding:0;margin-left: 0px;height: 100%;">
+                        <div id="line-chart-danger" style="width:100%;height:100%"></div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div class="flex-column">
+            <div class="panel flex-panel flex-panel-default">
+                <div class="panel-heading clearfix">
+                    <i class="glyphicon glyphicon-th pull-left"></i>
+                    Column Chart
+                    <i class="glyphicon glyphicon-cog pull-right"></i>
+                </div>
+                <div class="panel-body">
+                    <div id="column-chart" style="width:100%;height:100%"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="flex-row">
+        <div class="flex-column">
+            <div class="panel flex-panel flex-panel-default">
+                <div class="panel-heading clearfix">
+                    <i class="glyphicon glyphicon-th pull-left"></i>
+                    Panel heading without title
+                    <i class="glyphicon glyphicon-cog pull-right"></i>
+                </div>
+                <div class="panel-body">
+                    <div id="column-chart-blue" style="width:100%;height:100%"></div>
+                </div>
+            </div>
+        </div>
+        <div class="flex-column">
+            <div class="panel flex-panel flex-panel-default">
+                <div class="panel-heading clearfix">
+                    <i class="glyphicon glyphicon-th pull-left"></i>
+                    仿https://dribbble.com/shots/1407112-Desk-com-Dashboard
+                    <i class="glyphicon glyphicon-cog pull-right"></i>
+                </div>
+                <div class="panel-body">
+                    <div id="random-chart" style="width:100%;height:100%"></div>
+                </div>
+            </div>
+        </div>
+        <div class="flex-column">
+            <div class="panel flex-panel flex-panel-default">
+                <div class="panel-heading clearfix">
+                    <i class="glyphicon glyphicon-th pull-left"></i>
+                    Area Chart
+                    <i class="glyphicon glyphicon-cog pull-right"></i>
+                </div>
+                <div class="panel-body">
+                    <div id="area-chart-danger" style="width:100%;height:100%"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="flex-row">
+        <div class="flex-column">
+            <div class="panel flex-panel flex-panel-default">
+                <div class="panel-heading clearfix">
+                    <i class="glyphicon glyphicon-th pull-left"></i>
+                    User List
+                    <i class="glyphicon glyphicon-cog pull-right"></i>
+                </div>
+                <div class="panel-body">
+                    <ul>
+                        <li><img src="https://avatars1.githubusercontent.com/u/18714307?v=3&s=96">
+
+                            <p>dounai</p></li>
+                        <li><img src="https://avatars1.githubusercontent.com/u/18714307?v=3&s=96">
+
+                            <p>dounai</p></li>
+                        <li><img src="https://avatars1.githubusercontent.com/u/18714307?v=3&s=96">
+
+                            <p>dounai</p></li>
+                        <li><img src="https://avatars1.githubusercontent.com/u/18714307?v=3&s=96">
+
+                            <p>dounai</p></li>
+                        <li><img src="https://avatars1.githubusercontent.com/u/18714307?v=3&s=96">
+
+                            <p>dounai</p></li>
+                        <li><img src="https://avatars1.githubusercontent.com/u/18714307?v=3&s=96">
+
+                            <p>dounai</p></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="flex-column">
+            <div class="panel flex-panel flex-panel-sucess">
+                <div class="panel-heading clearfix">
+                    <i class="glyphicon glyphicon-th pull-left"></i>
+                    Line Chart
+                    <i class="glyphicon glyphicon-cog pull-right"></i>
+                </div>
+                <div class="panel-body clearfix">
+
+                    <div class="col-md-4 text-center"
+                         style="height: 100%;display: table;box-sizing:border-box;padding:0">
+                            <span style="font-size: 100px;font-family: Times;display: table-cell;vertical-align: middle;">19<p
+                                    style="font-size:20px">min</p></span>
+                    </div>
+                    <div class="col-md-8 pull-right" style="padding:0;margin-left: 0px;height: 100%;">
+                        <div id="line-chart" style="width:100%;height:100%"></div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div class="flex-column">
+            <div class="panel flex-panel flex-panel-default">
+                <div class="panel-heading clearfix">
+                    <i class="glyphicon glyphicon-th pull-left"></i>
+                    Panel heading without title
+                    <i class="glyphicon glyphicon-cog pull-right"></i>
+                </div>
+                <div class="panel-body">
+                    <div id="pie-chart" style="width: 100%;height: 100%"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    //柱状图
+    var ColumnChart = function (idx, title, subtitle, datalistx, datalisty, colors) {
+        $(idx).highcharts({
+            chart: {
+                backgroundColor: 'transparent',
+                type: 'column',
+                zoomType: 'x',  //沿着X轴放大
+                panning: true,  //设置选区拖动
+                panKey: 'shift' //“Shift”即可拖动图表
+            },
+            title: {
+                text: ''
+            },
+            xAxis: {
+                lineColor: '#39475d',
+                tickColor: 'transparent',
+                categories: datalistx,
+                labels: {
+                    style: {
+                        color: '#8093b3'
+                    },
+                    format: '{value} '
+                }
+            },
+            credits: {
+                enabled: false // 禁用版权信息
+            },
+            colors: colors,
+            legend: {
+                enabled: false
+            },
+            yAxis: {
+                min: 0,
+                gridLineColor: '#39475d',
+                gridLineDashStyle: 'longdash',
+                title: {
+                    text: ''
+                },
+                labels: {
+                    style: {
+                        color: '#8093b3'
+                    }
+                }
+            },
+            tooltip: {
+                enabled: false
+            },
+            plotOptions: {
+                column: {
+                    pointPadding: 0.2,
+                    borderWidth: 0
+                }
+            },
+            series: [{data: datalisty}]
+        });
+    };
+    //线图
+    var LineChart = function (idx, title, subtitle, datalistx, datalisty, colors) {
+        $(idx).highcharts({
+            chart: {
+                backgroundColor: 'transparent',
+                type: 'line'
+            },
+            title: {
+                text: ''
+            },
+            xAxis: {
+                categories: datalistx,
+                lineColor: 'rgba(255,255,255,.1)',
+                tickColor: 'transparent',
+                labels: {
+                    style: {
+                        color: '#fff'
+                    },
+                    format: '{value} '
+                },
+                alternateGridColor: 'rgba(255,255,255,.1)'  //隔行变色
+            },
+            yAxis: {
+                gridLineColor: 'rgba(255,255,255,.3)',
+                gridLineDashStyle: 'Dot',
+                title: {
+                    text: ''
+                },
+                labels: {
+                    style: {
+                        color: '#fff'
+                    }
+                },
+                plotLines: [{
+                    color: 'rgba(255,255,255,.3)',
+                    dashStyle: 'solid',
+                    value: 300,
+                    width: 2
+                }]
+            },
+            legend: {
+                enabled: false
+            },
+            colors: colors,
+            credits: {
+                enabled: false // 禁用版权信息
+            },
+            series: datalisty
+        });
+    };
+    //面积图
+    var AreaChart = function (idx, title, subtitle, datalistx, datalisty, colors) {
+        $(idx).highcharts({
+            chart: {
+                backgroundColor: 'transparent',
+                type: 'area'
+            },
+            title: {
+                text: ''
+            },
+            xAxis: {
+                categories: datalistx,
+                tickmarkPlacement: 'on',
+                title: {
+                    enabled: false
+                },
+                opposite: true,
+                lineColor: 'rgba(255,255,255,.1)',
+                tickColor: 'transparent',
+                labels: {
+                    style: {
+                        color: '#8093b3'
+                    },
+                    format: '{value} '
+                },
+                alternateGridColor: 'rgba(255,255,255,.1)'
+            },
+            yAxis: {
+                gridLineColor: 'rgba(255,255,255,.3)',
+                gridLineDashStyle: 'Dot',
+                title: {
+                    text: ''
+                },
+                labels: {
+                    formatter: function () {
+                        return this.value;
+                    },
+                    style: {
+                        color: '#8093b3'
+                    }
+                }
+            },
+            tooltip: {
+                shared: true
+
+            },
+            plotOptions: {
+                area: {
+                    stacking: 'normal',
+                    lineColor: '#666666',
+                    lineWidth: 1,
+                    marker: {
+                        lineWidth: 1,
+                        lineColor: '#666666'
+                    }
+                }
+            },
+            colors: colors,
+            credits: {
+                enabled: false // 禁用版权信息
+            },
+            legend: {
+                itemStyle: {
+                    color: '#8093b3',
+                    width: 30
+                },
+                itemHoverStyle: {
+                    color: '#8093b3'
+                },
+                symbolWidth: 8,
+                symbolHeight: 8,
+                symbolRadius: 8
+            },
+
+            series: datalisty
+        });
+    };
+    //实时数据
+
+    Highcharts.setOptions({
+        global: {
+            useUTC: false
+        }
+    });
+    $('#random-chart').highcharts({
+        chart: {
+            backgroundColor: 'transparent',
+            type: 'spline',
+            animation: Highcharts.svg,
+            events: {
+                load: function () {
+                    var series = this.series[0];
+                    setInterval(function () {
+                        var x = (new Date()).getTime(),
+                                y = Math.random();
+                        series.addPoint([x, y], true, true);
+                    }, 5000);
+                }
+            }
+        },
+        title: {
+            text: ''
+        },
+        xAxis: {
+            type: 'datetime',
+            tickPixelInterval: 150,
+            lineColor: 'rgba(255,255,255,.1)',
+            tickColor: 'transparent',
+            labels: {
+                style: {
+                    color: '#8093b3'
+                }
+            }
+        },
+        yAxis: {
+            title: {
+                text: ''
+            },
+            plotLines: [{
+                value: 0,
+                width: 1,
+                color: '#808080'
+            }],
+            gridLineColor: 'rgba(255,255,255,.3)',
+            gridLineDashStyle: 'Dot',
+            labels: {
+
+                style: {
+                    color: '#8093b3'
+                }
+            }
+        },
+        credits: {
+            enabled: false
+        },
+        legend: {
+            enabled: false
+        },
+        series: [{
+            name: 'Random data',
+            data: (function () {
+                var data = [],
+                        time = (new Date()).getTime(),
+                        i;
+
+                for (i = -19; i <= 0; i += 1) {
+                    data.push({
+                        x: time + i * 1000,
+                        y: Math.random()
+                    });
+                }
+                return data;
+            }())
+        }]
+    });
+
+    //饼图
+    var PieChart = function (idx, title, subtitle, datalist, colors) {
+        $(idx).highcharts({
+            chart: {
+                backgroundColor: 'transparent',
+                type: 'pie'
+            },
+            title: {
+                text: ''
+            },
+            subtitle: {
+                text: ''
+            },
+            legend: {
+                itemStyle: {
+                    color: '#8093b3',
+                    width: 30
+                },
+                itemHoverStyle: {
+                    color: '#8093b3'
+                },
+                symbolWidth: 12,
+                symbolHeight: 12,
+                symbolRadius: 0
+            },
+
+            plotOptions: {
+                pie: {
+                    allowPointSelect: true,
+                    cursor: 'pointer',
+                    dataLabels: {
+                        enabled: false
+                    },
+                    showInLegend: true
+                }
+            },
+            credits: {
+                enabled: false
+            },
+            colors: colors,
+            series: datalist
+        });
+
+    }
+
+
+    //颜色
+    var yellow = ['#f8c84b', '#434348', '#90ed7d', '#f7a35c', '#8085e9', '#f15c80', '#e4d354', '#8085e8', '#8d4653', '#91e8e1'];
+    var blue = ['#008ed1', '#434348', '#90ed7d', '#f7a35c', '#8085e9', '#f15c80', '#e4d354', '#8085e8', '#8d4653', '#91e8e1'];
+    var whiteBlack = ['#fff', '#000', '#90ed7d', '#f7a35c', '#8085e9', '#f15c80', '#e4d354', '#8085e8', '#8d4653', '#91e8e1'];
+    var areaColor = ['#fff691', '#8bdcff', '#84f493', '#ff979d', '#8085e9', '#f15c80', '#e4d354', '#8085e8', '#8d4653', '#91e8e1'];
+
+
+    //数据
+    ColumnChartdatalistx = ['Jan<br><span style="color:#f8fcfe;font-size:12px">499</span>',
+        'Feb<br><span style="color:#f8fcfe;font-size:12px">715</span>',
+        'Mar<br><span style="color:#f8fcfe;font-size:12px">1064</span>',
+        'Apr<br><span style="color:#f8fcfe;font-size:12px">1292</span>',
+        'May<br><span style="color:#f8fcfe;font-size:12px">1440</span>',
+        'Jun<br><span style="color:#f8fcfe;font-size:12px">1760</span>',
+        'Jul<br><span style="color:#f8fcfe;font-size:12px">1356</span>'];
+    ColumnChartdatalisty = [499, 715, 1064, 1292, 1440, 1760, 1356];
+    LineChartdatalistx = ['20', '21', '22', '23', '24', '25', '26'];
+    LineChartdatalisty = [{name: 'Mobile', data: [170, 169, 395, 345, 382, 315, 352]}, {
+        name: 'Ip',
+        data: [39, 42, 57, 85, 119, 152, 170]
+    }];
+    AreaChartdatalistx = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+    AreaChartdatalisty = [{name: 'new', data: [1, 2, 3, 4, 1, 2, 3]}, {
+        name: 'open',
+        data: [2, 2, 2, 3, 2, 2, 2]
+    }, {name: 'pending', data: [3, 3, 3, 2, 3, 4, 3]}, {name: 'resolved', data: [4, 4, 4, 1, 4, 1, 5]}];
+
+    PieChartdatalist = [{
+        name: 'Delivered amount',
+        data: [['Bananas', 8], ['Kiwi', 3], ['Mixed nuts', 1], ['Oranges', 6], ['Apples', 8]]
+    }];
+
+
+    ColumnChart("#column-chart", null, null, ColumnChartdatalistx, ColumnChartdatalisty, yellow);
+    ColumnChart("#column-chart-blue", null, null, ColumnChartdatalistx, ColumnChartdatalisty, blue);
+
+    LineChart("#line-chart", null, null, LineChartdatalistx, LineChartdatalisty, whiteBlack);
+    LineChart("#line-chart-danger", null, null, LineChartdatalistx, LineChartdatalisty, whiteBlack);
+
+    AreaChart("#area-chart-danger", null, null, AreaChartdatalistx, AreaChartdatalisty, areaColor);
+
+    PieChart("#pie-chart", null, null, PieChartdatalist, areaColor);
+</script>
+</body>
+</html>
