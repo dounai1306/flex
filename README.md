@@ -10,6 +10,12 @@ flex 属性是 flex-grow、flex-shrink 和 flex-basis 属性的简写属性。
 
 注意：如果元素不是弹性盒模型对象的子元素，则 flex 属性不起作用。
 
+
+
+[基础flex布局](https://dounai1306.github.io/flex/flex-1.html)
+
+[仿dribble布局](https://dounai1306.github.io/flex/flex-2.html)
+
 仿 [https://dribbble.com/shots/1407112-Desk-com-Dashboard]()
 
 ![](img/flex.png)
